@@ -1,7 +1,28 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function Dashboard({data}) {
+function Dashboard() {
+
+  const [data, setData] = useState([]);
+
+    useEffect(() => {
+      fetchData();
+    }, []);
+
+    const fetchData = async () => {
+      try {
+        let res = await axios.get(`https://crud-drba.onrender.com/user`);
+        if (res.status === 200) {
+          setData(res.data.users);
+          // toast.success(res.data.message);
+        } else {
+          toast.error(error.res.message);
+        }
+      } catch (error) {
+        // toast.error(error.res.data.message);
+        console.log("fetch error");
+      }
+    };
   
   
 

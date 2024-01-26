@@ -43,7 +43,7 @@ function CreateUser({
       })
       .catch((err) => console.log(err));
     // setData(data.concat(dataObject));
- 
+      fetchData();
     //clear the input
     setNewUserName("");
     setNewUserGender("");
@@ -52,7 +52,7 @@ function CreateUser({
     setNewPhoneNo("");
     setNewUserType("");
     // navigate("/users");
-    fetchData();
+      
        navigate("/");
   };
 
