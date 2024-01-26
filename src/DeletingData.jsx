@@ -14,6 +14,7 @@ function DeletingData({ selectOption, fetchData }) {
         console.log(response.data);
         if (response.data) {
           setSelectedData(response.data.user);
+          
         }
       }
     } catch (err) {
@@ -34,6 +35,7 @@ function DeletingData({ selectOption, fetchData }) {
       .then((response) => {
         console.log(response);
         console.log("data deleted successfully");
+        navigate("/");
       })
       .catch((err) => {
         console.log("error deleting data", err);

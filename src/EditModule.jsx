@@ -60,13 +60,13 @@ function EditModule({ selectOption,fetchData }) {
       .then((response) => {
         console.log(response);
         console.log("data updated successfully");
+        navigate("/");
         fetchData();
       })
       .catch((err) => {
         console.log("error updating data", err);
       });
             
-      navigate("/");
   };
 
   return (
