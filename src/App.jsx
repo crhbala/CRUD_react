@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Note from "./Note";
 import Users from "./Users";
-import EditUsers from "./EditModule";
 import CreateUser from "./CreateUser";
 import EditModule from "./EditModule";
 import Dashboard from "./Dashboard";
@@ -33,10 +31,16 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/data");
-      setData(response.data);
+      let res = await axios.get(`https://crud-drba.onrender.com/user`);
+      if (res.status === 200) {
+        setData(res.data.users);
+        // toast.success(res.data.message);
+      } else {
+        toast.error(error.res.message);
+      }
     } catch (error) {
-      console.log("Failed fetch data", error);
+      // toast.error(error.res.data.message);
+      console.log("fetch error");
     }
   };
 
@@ -62,7 +66,7 @@ function App() {
               </Link>
             </div>
             <div>
-              <Link to={"/editusers"} className="btn">
+              <Link to={"/edit/:id"} className="btn">
                 <a className="list-group-item list-group-item py-2">
                   <i className="bi bi-pen fs-5 me-3"></i>
                   <span>Edit Users</span>
@@ -78,7 +82,7 @@ function App() {
               </Link>
             </div>
             <div>
-              <Link to={"/delete/:userid"} className="btn">
+              <Link to={"/delete/:id"} className="btn">
                 <a className="list-group-item list-group-item py-2">
                   <i className="bi bi-trash fs-5 me-3"></i>
                   <span>Delete User</span>
@@ -91,7 +95,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard data={data} />} />
           <Route path="/users" element={<Users data={data} />} />
-          <Route path="/editusers" element={<EditUser data={data} />} />
+          <Route path="/edit/:id" element={<EditUser data={data} />} />
           <Route
             path="/createuser"
             element={
@@ -112,12 +116,15 @@ function App() {
               />
             }
           />
-          <Route path="/delete/:userid" element={<DeleteUsers data={data} />} />
+          <Route path="/delete/:id" element={<DeleteUsers data={data} />} />
           <Route
-            path="/editmodule/:userid"
+            path="/edit/:id"
             element={<EditModule fetchData={fetchData} />}
           />
-          <Route path="/delete/:userid" element={<DeletingData data={data} fetchData={fetchData} />} />
+          <Route
+            path="/delete/:id"
+            element={<DeletingData data={data} fetchData={fetchData} />}
+          />
         </Routes>
       </Router>
     </div>

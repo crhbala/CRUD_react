@@ -9,11 +9,11 @@ function DeletingData({ selectOption, fetchData }) {
     try {
       if (selectOption != "select an ID") {
         const response = await axios.get(
-          `http://localhost:3000/data/${selectOption}`
+          `https://crud-drba.onrender.com/user/${selectOption}`
         );
         console.log(response.data);
         if (response.data) {
-          setSelectedData(response.data);
+          setSelectedData(response.data.user);
         }
       }
     } catch (err) {
@@ -30,7 +30,7 @@ function DeletingData({ selectOption, fetchData }) {
     event.preventDefault();
 
     axios
-      .delete(`http://localhost:3000/data/${selectedData.id}`)
+      .delete(`https://crud-drba.onrender.com/user/${selectedData._id}`)
       .then((response) => {
         console.log(response);
         console.log("data deleted successfully");
@@ -42,8 +42,8 @@ function DeletingData({ selectOption, fetchData }) {
   };
 
   return (
-    <div className="d-flex w-100 vh-100 justify-content-center align-items-center bg-ligt">
-      <div className="w-50 board bg-white shadow px-5 pt-3 pb-5 rounded">
+    <div className="d-flex w-auto vh-auto m-3 justify-content-center align-items-center bg-ligt">
+      <div className="w-auto board bg-white shadow px-5 pt-3 pb-5 rounded">
         <h1>Delete User</h1>
 
         {!selectedData ? (
@@ -116,12 +116,14 @@ function DeletingData({ selectOption, fetchData }) {
                 </label>
               </div>
             </div>
-            <button className="btn btn-danger" type="submit">
-              Delete
-            </button>
-            <Link to="/editusers" className="btn btn-primary ms-3">
-              Back
-            </Link>
+            <div className="d-flex justify-content-start align-items-center">
+              <button className="btn btn-danger" type="submit">
+                Delete
+              </button>
+              <Link to="/delete/:id" className="btn btn-primary ms-3">
+                Back
+              </Link>
+            </div>
           </form>
         )}
       </div>

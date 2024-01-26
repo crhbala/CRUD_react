@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 function Dashboard({data}) {
+  
+  
 
-    useEffect(() => {
+  useEffect(() => {
            adminUserFltr(data);
-           normalUserFltr(data);
+      normalUserFltr(data);
     }, []);
 
   const adminUserFltr = (data) => {
@@ -42,8 +44,8 @@ function Dashboard({data}) {
                 </tr>
               </thead>
               <tbody>
-                {normalUser.map((data) => (
-                  <tr key={data.id}>
+                {normalUser.map((data,i) => (
+                  <tr key={i}>
                     <td>{data.name}</td>
                     <td>{data.email}</td>
                     <td>{data.phone}</td>
@@ -78,8 +80,8 @@ function Dashboard({data}) {
                 </tr>
               </thead>
               <tbody>
-                {adminUser.map((data) => (
-                  <tr key={data.id}>
+                {adminUser.map((data, i) => (
+                  <tr key={i}>
                     <td>{data.name}</td>
                     <td>{data.email}</td>
                     <td>{data.phone}</td>

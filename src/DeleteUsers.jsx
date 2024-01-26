@@ -20,7 +20,7 @@ function DeleteUsers({ data }) {
         <select onChange={selectHandler} value={selectOption}>
           <option disabled>{"select an ID"}</option>
           {data.map((data) => (
-            <option key={data.id} value={data.id}>
+            <option key={data._id} value={data._id}>
               Name: {data.name} ({data.userType})
             </option>
           ))}

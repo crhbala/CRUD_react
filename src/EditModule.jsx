@@ -19,17 +19,17 @@ function EditModule({ selectOption,fetchData }) {
     try {
       if (selectOption != "select an ID") {
         const response = await axios.get(
-          `http://localhost:3000/data/${selectOption}`
+          `https://crud-drba.onrender.com/user/${selectOption}`
         );
-        console.log(response.data);
+        console.log(response.data.user);
         if (response.data) {
           setSelectedData(response.data);
-          setEditedName(response.data.name);
-          setEditedGender(response.data.gender);
-          setEditedImportant(response.data.important);
-          setEditedUserType(response.data.userType);
-          setEditedPhoneNo(response.data.phone);
-          setEditedUserEmail(response.data.email);
+          setEditedName(response.data.user.name);
+          setEditedGender(response.data.user.gender);
+          setEditedImportant(response.data.user.important);
+          setEditedUserType(response.data.user.userType);
+          setEditedPhoneNo(response.data.user.phone);
+          setEditedUserEmail(response.data.user.email);
         }
       }
     } catch (err) {
@@ -46,7 +46,7 @@ function EditModule({ selectOption,fetchData }) {
     event.preventDefault();
 
     let data = {
-      id: selectedData.id,
+      id: selectedData._id,
       name: editedName,
       email: editedUserEmail,
       phone: editedPhoneNo,
@@ -56,7 +56,7 @@ function EditModule({ selectOption,fetchData }) {
     };
 
     axios
-      .put(`http://localhost:3000/data/${selectedData.id}`, data)
+      .put(`https://crud-drba.onrender.com/user/${selectedData._id}`, data)
       .then((response) => {
         console.log(response);
         console.log("data updated successfully");
@@ -70,8 +70,8 @@ function EditModule({ selectOption,fetchData }) {
   };
 
   return (
-    <div className="d-flex w-100 vh-100 justify-content-center align-items-center bg-ligt">
-      <div className="w-50 board bg-white shadow px-5 pt-3 pb-5 rounded">
+    <div className="d-flex w-auto vh-auto m-3 justify-content-center align-items-center bg-ligt">
+      <div className="w-auto board bg-white shadow px-5 pt-3 pb-5 rounded">
         <h1>Edit User Details</h1>
 
         {!selectedData ? (
@@ -159,12 +159,14 @@ function EditModule({ selectOption,fetchData }) {
                 </label>
               </div>
             </div>
-            <button className="btn btn-secondary" type="submit">
-              Edit
-            </button>
-            <Link to="/editusers" className="btn btn-primary ms-3">
-              Back
-            </Link>
+            <div className="d-flex justify-content-start align-items-center">
+              <button className="btn btn-secondary" type="submit">
+                Edit
+              </button>
+              <Link to="/edit/:id" className="btn btn-primary m-3 ">
+                Back
+              </Link>
+            </div>
           </form>
         )}
       </div>
