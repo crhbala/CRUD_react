@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 function CreateUser({
   setNewUserName,
@@ -39,9 +40,9 @@ function CreateUser({
     axios
       .post("https://crud-drba.onrender.com/user", dataObject)
       .then((response) => {
-        console.log("note added successfully....");
+        toast.success(response.data.message);
       })
-      .catch((err) => console.log(err));
+      .catch((error) => toast.error(error.response.data.message));
     // setData(data.concat(dataObject));
       fetchData();
     //clear the input

@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import DeleteUsers from "./DeleteUsers";
 import EditUser from "./EditUser";
 import DeletingData from "./DeletingData";
+import { toast } from "react-toastify";
 
 // Design an UI to implement the CRUD // CRUD - Create,Read,Update,Delete // Dashboard // List Users - /users // Create User - /create-user // Edit User - /edit-user/:id // profile - /profile/:id // edit-profile – /edit-profile/:id
 
@@ -34,13 +35,12 @@ function App() {
       let res = await axios.get(`https://crud-drba.onrender.com/user`);
       if (res.status === 200) {
         setData(res.data.users);
-        // toast.success(res.data.message);
+        toast.success(res.data.message);
       } else {
         toast.error(error.res.message);
       }
     } catch (error) {
-      // toast.error(error.res.data.message);
-      console.log("fetch error");
+      toast.error(error.res.data.message);
     }
   };
 

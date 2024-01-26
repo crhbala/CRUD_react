@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 function EditModule({ selectOption,fetchData }) {
 
@@ -58,13 +59,12 @@ function EditModule({ selectOption,fetchData }) {
     axios
       .put(`https://crud-drba.onrender.com/user/${selectedData._id}`, data)
       .then((response) => {
-        console.log(response);
-        console.log("data updated successfully");
+        toast.success(response.data.message);
         navigate("/");
         fetchData();
       })
-      .catch((err) => {
-        console.log("error updating data", err);
+      .catch((error) => {
+        toast.error(error.response.data.message);
       });
             
   };
@@ -112,7 +112,7 @@ function EditModule({ selectOption,fetchData }) {
               />
             </div>
             <div className="d-flex flex-wrap justify-content-between">
-              <div>
+              <div className="m-2">
                 <label className="mb-2">
                   Is Active User: &nbsp;&nbsp;
                   <select
@@ -130,7 +130,7 @@ function EditModule({ selectOption,fetchData }) {
                   </select>
                 </label>
               </div>
-              <div>
+              <div className="m-2">
                 <label className="mb-2">
                   Gender: &nbsp;&nbsp;
                   <select
@@ -144,7 +144,7 @@ function EditModule({ selectOption,fetchData }) {
                   </select>
                 </label>
               </div>
-              <div>
+              <div className="m-2">
                 <label className="mb-2">
                   User Type: &nbsp;&nbsp;
                   <select

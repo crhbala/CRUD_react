@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function DeletingData({ selectOption, fetchData }) {
   const [selectedData, setSelectedData] = useState(null);
+  const navigate = useNavigate();
 
   const fetchDat = async () => {
     try {
@@ -11,14 +13,14 @@ function DeletingData({ selectOption, fetchData }) {
         const response = await axios.get(
           `https://crud-drba.onrender.com/user/${selectOption}`
         );
-        console.log(response.data);
+        toast.success(response.data.message);
         if (response.data) {
           setSelectedData(response.data.user);
           
         }
       }
-    } catch (err) {
-      console.log("error", err);
+    } catch (error) {
+      toast.error(error.res.data.message);
     }
   };
   // console.log(selectedData);
@@ -81,7 +83,7 @@ function DeletingData({ selectOption, fetchData }) {
               />
             </div>
             <div className="d-flex flex-wrap justify-content-between">
-              <div>
+              <div className="m-2">
                 <label className="mb-2">
                   Is Active User: &nbsp;&nbsp;
                   <select
@@ -94,7 +96,7 @@ function DeletingData({ selectOption, fetchData }) {
                   </select>
                 </label>
               </div>
-              <div>
+              <div className="m-2">
                 <label className="mb-2">
                   Gender: &nbsp;&nbsp;
                   <select className="form-control" value={selectedData.gender}>
@@ -104,7 +106,7 @@ function DeletingData({ selectOption, fetchData }) {
                   </select>
                 </label>
               </div>
-              <div>
+              <div className="m-2">
                 <label className="mb-2">
                   User Type: &nbsp;&nbsp;
                   <select
